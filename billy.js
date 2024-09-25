@@ -128,22 +128,114 @@ function render() {
 	mv = mult(mv, rotateX(spinX));
 	mv = mult(mv, rotateY(spinY));
 
-	// Build the letter H...
-	// First the right leg
-	let mv1 = mult(mv, translate(-0.3, 0.0, 0.0));
-	mv1 = mult(mv1, scalem(0.1, 1.0, 0.1));
-	gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
-	gl.drawArrays( gl.TRIANGLES, 0, numVertices );
+	const thickness = 0.02;
+	const depth = 0.28;
+	const width = 0.80;
+	const height = 1.06;
+	const internal_depth = 0.26;
+	const internal_width = 0.76;
+	const internal_height = 0.96;
+	const foot_height = 0.09;
 
-	// Then the left leg
-	mv1 = mult(mv, translate(0.3, 0.0, 0.0));
-	mv1 = mult(mv1, scalem(0.1, 1.0, 0.1));
-	gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
+	const side = scalem(thickness, height, depth);
+	const shelf = scalem(internal_width, thickness, depth);
+	const backside = scalem(width, height, 0.005);
+
+	// Right side
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(mult(mv, translate(-((width - thickness / 2) / 2), 0.0, 0.0)), side)
+		)
+	);
 	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
 
-	// Finally the middle bar (no translation necessary)
-	mv1 = mult(mv, scalem(0.5, 0.1, 0.1));
-	gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
+	// Left side
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(mult(mv, translate(((width - thickness / 2) / 2), 0.0, 0.0)), side)
+		)
+	);
+	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+
+	// Lower shelf
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(
+				mult(mv, translate(0, -0.15, 0)),
+				shelf
+			)
+		)
+	);
+	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+
+	// Upper shelf
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(
+				mult(mv, translate(0, 0.15, 0)),
+				shelf
+			)
+		)
+	);
+	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+
+	// Bottom shelf
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(
+				mult(mv, translate(0, -((height / 2) - foot_height), 0)),
+				shelf
+			)
+		)
+	);
+	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+
+	// Top
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(
+				mult(mv, translate(0, ((height / 2) - thickness / 2), 0)),
+				shelf
+			)
+		)
+	);
+	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+
+	// Backside
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(
+				mult(mv, translate(0, 0, (depth / 2))),
+				backside
+			)
+		)
+	);
+	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
+
+	gl.uniformMatrix4fv(
+		matrixLoc,
+		false,
+		flatten(
+			mult(
+				mult(mv, translate(0, -((height / 2) - (foot_height / 2)), -((depth / 2) - 0.02))),
+				scalem(internal_width, foot_height, thickness)
+			)
+		)
+	);
 	gl.drawArrays(gl.TRIANGLES, 0, numVertices);
 
 	requestAnimFrame(render);
