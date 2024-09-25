@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<script type="text/javascript" src="webgl-utils.js"></script>
+		<script type="text/javascript" src="MV.js"></script>
+		<script type="module" src="shaders.js"></script>
+		<script type="module">
+			import * as billy from './billy.js';
+
+			[billy].map(async m => m.init());
+		</script>
+		<title>Heimadæmi 4</title>
+	</head>
+	<body>
+		<main>
+			<h1></h1>
+			<section id="billy">
+				<h2>BILLY Skápur</h2>
+				<canvas id="billy-canvas" width="512" height="512"></canvas>
+			</section>
+			<section id="continue-time">
+				<h2>Continue Time Klukka</h2>
+				<canvas id="clock-canvas" width="512" height="512"></canvas>
+			</section>
+		</main>
+	</body>
+</html>
