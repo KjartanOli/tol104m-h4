@@ -19,8 +19,8 @@ let matrixLoc = null;
 let colourLoc = null;
 
 const [vertex_shader, fragment_shader] = [
-	'/shaders/clock/vertex-shader.glsl',
-	'/shaders/clock/fragment-shader.glsl'
+	'shaders/clock/vertex-shader.glsl',
+	'shaders/clock/fragment-shader.glsl'
 ].map(get_shader);
 
 export async function init() {

@@ -17,8 +17,8 @@ let matrixLoc = null;
 
 
 const [vertex_shader, fragment_shader] = [
-	'/shaders/billy/vertex-shader.glsl',
-	'/shaders/billy/fragment-shader.glsl'
+	'shaders/billy/vertex-shader.glsl',
+	'shaders/billy/fragment-shader.glsl'
 ].map(get_shader);
 
 export async function init() {
