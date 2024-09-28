@@ -7,8 +7,9 @@
 		<script type="module" src="shaders.js"></script>
 		<script type="module">
 			import * as billy from './billy.js';
+			import * as clock from './clock.js';
 
-			[billy].map(async m => m.init());
+			[billy, clock].map(async m => m.init());
 		</script>
 		<title>Heimadæmi 4</title>
 	</head>
